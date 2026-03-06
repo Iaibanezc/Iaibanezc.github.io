@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iván Ibáñez — Ingeniero Industrial & Investigador</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:      #0b1120;
+    --navy2:     #111c30;
+    --navy3:     #1a2a45;
+    --accent:    #c8a96e;      /* warm gold — academic gravitas */
+    --accent2:   #e8c98a;
+    --accent-bg: rgba(200,169,110,0.08);
+    --white:     #f5f3ef;
+    --white2:    #ede9e1;
+    --text:      #e8e4dc;
+    --text-mid:  #9fa8b8;
+    --text-dim:  #5a6478;
+    --border:    rgba(200,169,110,0.18);
+    --border2:   rgba(255,255,255,0.06);
+    --serif:     'Cormorant Garamond', Georgia, serif;
+    --sans:      'DM Sans', sans-serif;
+    --mono:      'DM Mono', monospace;
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAVIGATION ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 1.25rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.4s, backdrop-filter 0.4s;
+  }
+
+  nav.scrolled {
+    background: rgba(11,17,32,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--text-mid);
+    text-decoration: none;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 0 3rem;
+    overflow: hidden;
+  }
+
+  /* Diagonal grid background */
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(200,169,110,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,169,110,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 300;
+    line-height: 1.0;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+    animation: fadeUp 0.8s ease 0.1s both;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+    font-weight: 300;
+    color: var(--text-mid);
+    font-style: italic;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--text-mid);
+    max-width: 560px;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+    font-weight: 300;
+    animation: fadeUp 0.8s ease 0.3s both;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    animation: fadeUp 0.8s ease 0.4s both;
+  }
+
+  .btn-gold {
+    background: var(--accent);
+    color: var(--navy);
+    padding: 0.8rem 2rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .btn-gold:hover {
+    background: var(--accent2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(200,169,110,0.3);
+  }
+
+  .btn-outline {
+    border: 1px solid var(--border);
+    color: var(--text-mid);
+    padding: 0.8rem 2rem;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  /* Floating badge */
+  .hero-badge {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: right;
+    animation: fadeUp 1s ease 0.5s both;
+  }
+
+  .badge-ring {
+    width: 260px;
+    height: 260px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(200,169,110,0.04);
+    position: relative;
+  }
+
+  .badge-ring::before {
+    content: '';
+    position: absolute;
+    inset: 12px;
+    border: 1px dashed rgba(200,169,110,0.15);
+    border-radius: 50%;
+  }
+
+  .badge-num {
+    font-family: var(--serif);
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .badge-label {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: var(--text-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 0.25rem;
+    text-align: center;
+    padding: 0 1rem;
+  }
+
+  /* ── SECTIONS COMMON ── */
+  section {
+    padding: 7rem 3rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .section-num {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.2em;
+  }
+
+  .section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300;
+    color: var(--white);
+    letter-spacing: -0.01em;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── ABOUT ── */
+  #about { background: var(--navy2); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    color: var(--text-mid);
+    font-size: 1.05rem;
+    line-height: 1.9;
+    font-weight: 300;
+    margin-bottom: 1.25rem;
+  }
+
+  .about-text p strong {
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .stat-box {
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    background: var(--accent-bg);
+    transition: border-color 0.2s;
+  }
+
+  .stat-box:hover { border-color: var(--accent); }
+
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+  }
+
+  /* ── EXPERIENCE ── */
+  #experience { background: var(--navy); }
+
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .tl-item {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 3rem;
+    padding: 2.5rem 0 2.5rem 0;
+    border-bottom: 1px solid var(--border2);
+    position: relative;
+  }
+
+  .tl-item:last-child { border-bottom: none; }
+
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -4px;
+    top: 2.5rem;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 12px rgba(200,169,110,0.5);
+  }
+
+  .tl-date {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    letter-spacing: 0.15em;
+    padding-left: 2rem;
+    padding-top: 0.2rem;
+    text-transform: uppercase;
+  }
+
+  .tl-content { padding-right: 2rem; }
+
+  .tl-role {
+    font-family: var(--serif);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 0.2rem;
+  }
+
+  .tl-org {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.9rem;
+  }
+
+  .tl-desc {
+    color: var(--text-mid);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    font-weight: 300;
+  }
+
+  /* ── EDUCATION ── */
+  #education { background: var(--navy2); }
+
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .edu-card {
+    border: 1px solid var(--border);
+    padding: 2rem 2.5rem;
+    background: var(--accent-bg);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .edu-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+
+  .edu-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--accent);
+  }
+
+  .edu-degree {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 0.3rem;
+    line-height: 1.3;
+  }
+
+  .edu-uni {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .edu-detail {
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    font-weight: 300;
+  }
+
+  .edu-badge {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.2rem 0.75rem;
+    border: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--navy); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .skill-group {
+    border: 1px solid var(--border2);
+    padding: 2rem;
+    background: rgba(255,255,255,0.01);
+    transition: border-color 0.2s;
+  }
+
+  .skill-group:hover { border-color: var(--border); }
+
+  .skill-group-title {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border2);
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-tag {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--text-mid);
+    background: rgba(200,169,110,0.06);
+    border: 1px solid rgba(200,169,110,0.15);
+    padding: 0.3rem 0.75rem;
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+  }
+
+  .skill-tag:hover {
+    background: rgba(200,169,110,0.12);
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--navy2); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .proj-card {
+    border: 1px solid var(--border);
+    padding: 2.5rem;
+    background: rgba(11,17,32,0.6);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  .proj-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  }
+
+  .proj-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle at 100% 100%, rgba(200,169,110,0.08), transparent 70%);
+  }
+
+  .proj-num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    letter-spacing: 0.2em;
+    margin-bottom: 1rem;
+  }
+
+  .proj-title {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+
+  .proj-desc {
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    line-height: 1.8;
+    font-weight: 300;
+    margin-bottom: 1.25rem;
+  }
+
+  .proj-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .proj-tag {
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--accent);
+    background: var(--accent-bg);
+    border: 1px solid rgba(200,169,110,0.2);
+    padding: 0.2rem 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--navy);
+    text-align: center;
+  }
+
+  .contact-inner {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .contact-intro {
+    font-family: var(--serif);
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 300;
+    color: var(--white);
+    font-style: italic;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+
+  .contact-sub {
+    font-size: 0.95rem;
+    color: var(--text-mid);
+    font-weight: 300;
+    margin-bottom: 3rem;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 4rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1.5rem;
+    border: 1px solid var(--border);
+    color: var(--text-mid);
+    text-decoration: none;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    transition: all 0.2s;
+  }
+
+  .contact-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .contact-link svg {
+    width: 16px; height: 16px;
+    fill: currentColor;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border2);
+    padding: 2rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+  }
+
+  .footer-copy {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    letter-spacing: 0.1em;
+  }
+
+  .footer-copy span { color: var(--accent); }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 0 3rem;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    section { padding: 5rem 1.5rem; }
+    .hero { padding: 0 1.5rem; }
+    .hero-badge { display: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .tl-item { grid-template-columns: 1fr; gap: 0.5rem; }
+    .tl-date { padding-left: 2rem; }
+    .edu-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .projects-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+
+  @media (max-width: 600px) {
+    .nav-links { display: none; }
+    .hero-name { font-size: 2.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">I.A. Ibáñez</a>
+  <ul class="nav-links">
+    <li><a href="#about">Perfil</a></li>
+    <li><a href="#experience">Experiencia</a></li>
+    <li><a href="#education">Educación</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Proyectos</a></li>
+    <li><a href="#contact">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-inner">
+    <div class="hero-tag">Ingeniero Industrial · Investigador · Docente</div>
+    <h1 class="hero-name">Iván <em>Ibáñez</em><br>Castillo</h1>
+    <p class="hero-title">MSc. Ingeniería Industrial — Universidad del Norte</p>
+    <p class="hero-desc">
+      Especialista en confiabilidad de activos mineros, análisis de datos y modelado predictivo.
+      Combino ingeniería industrial con ciencia de datos para optimizar la gestión de mantenimiento
+      en entornos de alta exigencia operacional.
+    </p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-gold">Ver Proyectos</a>
+      <a href="#contact" class="btn-outline">Contacto</a>
+    </div>
+  </div>
+
+  <div class="hero-badge">
+    <div class="badge-ring">
+      <div class="badge-num">3+</div>
+      <div class="badge-label">Años de experiencia profesional</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Sobre mí</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>
+          Soy Ingeniero Industrial de la <strong>Universidad del Norte</strong> (Barranquilla, Colombia),
+          actualmente en el último semestre de mi <strong>Maestría en Ingeniería Industrial</strong>.
+          Mi trabajo se centra en la intersección entre la ingeniería de confiabilidad y la ciencia de datos aplicada
+          a activos industriales de alto valor.
+        </p>
+        <p>
+          Cuento con experiencia directa en el sector minero, donde trabajé en <strong>mantenimiento y
+          confiabilidad de equipos de alto tonelaje</strong>, desarrollando metodologías de análisis de fallas
+          y modelos predictivos para camiones mineros Hitachi EH Series.
+        </p>
+        <p>
+          Paralelamente, ejerzo como <strong>docente universitario</strong>, dictando las asignaturas de
+          Control y Gestión de la Calidad y Seguridad y Gestión Ambiental, transmitiendo el rigor
+          técnico y analítico a la próxima generación de ingenieros.
+        </p>
+        <p>
+          Soy políglota: hablo <strong>español</strong> (nativo), <strong>inglés</strong> y <strong>alemán</strong>,
+          lo que me permite acceder y contribuir a literatura técnica e investigaciones de frontera a nivel global.
+        </p>
+      </div>
+      <div class="stats-grid reveal">
+        <div class="stat-box">
+          <div class="stat-num">1+</div>
+          <div class="stat-label">Años en sector minero</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">2</div>
+          <div class="stat-label">Proyectos de análisis de datos</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Idiomas</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">2</div>
+          <div class="stat-label">Asignaturas impartidas</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Experiencia</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="timeline">
+
+      <div class="tl-item reveal">
+        <div class="tl-date">2025 — Presente<br><br>Barranquilla, CO</div>
+        <div class="tl-content">
+          <div class="tl-role">Docente Universitario</div>
+          <div class="tl-org">Universidad del Norte</div>
+          <p class="tl-desc">
+            Instructor de las asignaturas <em>Control y Gestión de la Calidad</em> y
+            <em>Seguridad y Gestión Ambiental</em> para estudiantes de Ingeniería Industrial.
+            Diseño de contenidos académicos, evaluaciones y metodologías de aprendizaje activo
+            orientadas a la aplicación práctica de estándares de calidad y normativa ambiental en
+            contextos industriales reales.
+          </p>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-date">2023 — 2024<br><br>Sector Minero, CO</div>
+        <div class="tl-content">
+          <div class="tl-role">Especialista en Mantenimiento y Confiabilidad</div>
+          <div class="tl-org">Sector Minero — Equipos Hitachi EH Series</div>
+          <p class="tl-desc">
+            Gestión de mantenimiento y análisis de confiabilidad de camiones mineros de gran tonelaje.
+            Implementación de metodologías RCM y análisis de modos de falla (FMEA).
+            Desarrollo de indicadores KPI (MTBF, MTTR, Disponibilidad) y estudios de análisis de fallas
+            en componentes críticos como suspensiones hidráulicas y chasis estructurales,
+            sentando las bases para proyectos de modelado predictivo con Machine Learning.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Educación</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="edu-grid">
+
+      <div class="edu-card reveal">
+        <div class="edu-degree">Maestría en Ingeniería Industrial</div>
+        <div class="edu-uni">Universidad del Norte · Barranquilla</div>
+        <p class="edu-detail">
+          Investigación enfocada en confiabilidad de activos mineros, desarrollo de indicadores
+          de deterioro inducido por operador y modelos de Machine Learning para predicción de
+          fallas en equipos de alto tonelaje. Último semestre en curso.
+        </p>
+        <span class="edu-badge">En curso — 2025</span>
+      </div>
+
+      <div class="edu-card reveal">
+        <div class="edu-degree">Ingeniería Industrial</div>
+        <div class="edu-uni">Universidad del Norte · Barranquilla</div>
+        <p class="edu-detail">
+          Formación integral en gestión de operaciones, optimización de procesos, control de calidad,
+          ingeniería de métodos y fundamentos de estadística aplicada e investigación de operaciones.
+        </p>
+        <span class="edu-badge">Graduado</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Habilidades</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-grid">
+
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Programación & Data Science</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">R</span>
+          <span class="skill-tag">Machine Learning</span>
+          <span class="skill-tag">Análisis de Datos</span>
+          <span class="skill-tag">Visualización</span>
+          <span class="skill-tag">Modelos Predictivos</span>
+        </div>
+      </div>
+
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Ingeniería & Herramientas</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Confiabilidad (RCM)</span>
+          <span class="skill-tag">FMEA</span>
+          <span class="skill-tag">MTBF / MTTR</span>
+          <span class="skill-tag">Arena Simulation</span>
+          <span class="skill-tag">Microsoft Office</span>
+          <span class="skill-tag">Control de Calidad</span>
+        </div>
+      </div>
+
+      <div class="skill-group reveal">
+        <div class="skill-group-title">Idiomas</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Español — Nativo</span>
+          <span class="skill-tag">Inglés — Profesional</span>
+          <span class="skill-tag">Alemán — Profesional</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2 class="section-title">Proyectos</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="projects-grid">
+
+      <div class="proj-card reveal">
+        <div class="proj-num">Proyecto 01 — Maestría (en desarrollo)</div>
+        <div class="proj-title">Indicador de Deterioro por Operador en Camiones Mineros</div>
+        <p class="proj-desc">
+          Desarrollo de un índice cuantitativo para medir el impacto del comportamiento del operador
+          sobre la confiabilidad de camiones Hitachi EH Series. Integra modelos de Machine Learning
+          para predecir la probabilidad de falla a partir de variables operacionales, llevando el
+          análisis de confiabilidad a un nuevo nivel de precisión predictiva.
+        </p>
+        <div class="proj-tags">
+          <span class="proj-tag">Machine Learning</span>
+          <span class="proj-tag">Python</span>
+          <span class="proj-tag">Confiabilidad</span>
+          <span class="proj-tag">Hitachi EH Series</span>
+          <span class="proj-tag">Investigación</span>
+        </div>
+      </div>
+
+      <div class="proj-card reveal">
+        <div class="proj-num">Proyecto 02 — Sector Minero</div>
+        <div class="proj-title">Análisis de Fallas en Suspensiones Hidráulicas</div>
+        <p class="proj-desc">
+          Estudio exhaustivo de los modos de falla de las suspensiones hidráulicas de camiones mineros
+          Hitachi. Análisis estadístico de patrones de falla, identificación de causas raíz y
+          desarrollo de recomendaciones para optimizar los intervalos de mantenimiento preventivo
+          y reducir el tiempo de parada no planificada.
+        </p>
+        <div class="proj-tags">
+          <span class="proj-tag">Análisis de Fallas</span>
+          <span class="proj-tag">FMEA</span>
+          <span class="proj-tag">R</span>
+          <span class="proj-tag">Minería de Datos</span>
+          <span class="proj-tag">Mantenimiento</span>
+        </div>
+      </div>
+
+      <div class="proj-card reveal">
+        <div class="proj-num">Proyecto 03 — Sector Minero</div>
+        <div class="proj-title">Análisis de Fallas Estructurales en Chasis</div>
+        <p class="proj-desc">
+          Investigación de fallas en los chasis de camiones mineros Hitachi EH Series, con enfoque
+          en la identificación de factores operacionales y ambientales que aceleran el deterioro
+          estructural. Generación de modelos estadísticos para anticipar eventos de falla y
+          optimizar la vida útil del activo.
+        </p>
+        <div class="proj-tags">
+          <span class="proj-tag">Análisis Estructural</span>
+          <span class="proj-tag">Estadística</span>
+          <span class="proj-tag">Python</span>
+          <span class="proj-tag">RCM</span>
+          <span class="proj-tag">Activos Críticos</span>
+        </div>
+      </div>
+
+      <div class="proj-card reveal">
+        <div class="proj-num">Proyecto 04 — Vibe Coding</div>
+        <div class="proj-title">Dashboard de Confiabilidad — Hitachi Mining</div>
+        <p class="proj-desc">
+          Aplicación web desarrollada con técnicas de <em>vibe coding</em> (IA generativa) para la
+          gestión de eventos de falla en equipos mineros. Calcula automáticamente KPIs de
+          confiabilidad (MTBF, MTTR, Disponibilidad), visualiza tendencias con gráficas interactivas
+          y gestiona 27 componentes críticos de camiones Hitachi EH Series.
+        </p>
+        <div class="proj-tags">
+          <span class="proj-tag">HTML / JS</span>
+          <span class="proj-tag">Chart.js</span>
+          <span class="proj-tag">Vibe Coding</span>
+          <span class="proj-tag">KPIs</span>
+          <span class="proj-tag">Dashboard</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-header" style="justify-content:center; text-align:center; flex-direction:column; align-items:center; gap:0.5rem;">
+      <span class="section-num">06</span>
+      <h2 class="section-title">Contacto</h2>
+    </div>
+    <div class="contact-inner reveal">
+      <p class="contact-intro">"La ingeniería es la aplicación del conocimiento para transformar la realidad."</p>
+      <p class="contact-sub">¿Interesado en colaborar o tienes alguna consulta? Escríbeme.</p>
+      <div class="contact-links">
+
+        <a href="mailto:iaibanez@uninorte.edu.co" class="contact-link">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          iaibanez@uninorte.edu.co
+        </a>
+
+        <a href="https://www.linkedin.com/in/ivan-ibanez-4b6010340" target="_blank" class="contact-link">
+          <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+          LinkedIn
+        </a>
+
+        <a href="https://github.com/Iaibanezc" target="_blank" class="contact-link">
+          <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+          GitHub · Iaibanezc
+        </a>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-copy">© 2025 <span>Iván Andrés Ibáñez Castillo</span> · Ingeniero Industrial</span>
+  <span class="footer-copy">Universidad del Norte · Barranquilla, Colombia</span>
+</footer>
+
+<script>
+  // ── NAVBAR scroll effect ──
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // ── SCROLL REVEAL ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
